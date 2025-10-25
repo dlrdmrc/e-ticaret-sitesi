@@ -1,11 +1,5 @@
 <?php
-    include 'components/connect.php';
-
-    if (isset($_COOKIE['kullanici_id'])) {
-        $kullanici_id = $_COOKIE['kullanici_id'];
-    }else{
-        $kullanici_id = '';
-    }
+    include '../components/connect.php';
 
     if (isset($_POST['submit'])) {
 
@@ -13,7 +7,7 @@
 
         // Temiz veriler
         $isim = trim($_POST['isim']);
-        $email = trim($_POST['email']);
+        $email = trim($_POST['email']);     
         $şifre = $_POST['şifre'];
         $cpass = $_POST['cpass'];
 
@@ -25,10 +19,10 @@
         $allowed_extensions = ['jpg', 'jpeg', 'png', 'webp'];
 
         // Benzersiz dosya adı
-        $image_folder = 'uploaded_files/' . $image;
+        $image_folder = '../uploaded_files/' . $image;
 
         // Email kontrolü
-        $select_seller = $conn->prepare("SELECT * FROM kullanıcılar WHERE email = ?");
+        $select_seller = $conn->prepare("SELECT * FROM satıcılar WHERE email = ?");
         $select_seller->execute([$email]);
 
         if ($select_seller->rowCount() > 0) {
@@ -44,7 +38,7 @@
             $password_to_save = $şifre;
 
             // Veritabanına ekle
-            $insert_seller = $conn->prepare("INSERT INTO kullanıcılar(id, isim, email, şifre, resim) VALUES(?, ?, ?, ?, ?)");
+            $insert_seller = $conn->prepare("INSERT INTO satıcılar(id, isim, email, şifre, resim) VALUES(?, ?, ?, ?, ?)");
             $insert_seller->execute([
                 $id,
                 htmlspecialchars($isim, ENT_QUOTES, 'UTF-8'),
@@ -56,7 +50,7 @@
             // Dosyayı taşı
             move_uploaded_file($image_tmp_name, $image_folder);
 
-            $success_msg[] = 'Yeni kullanıcı başarıyla kaydedildi! Giriş yapabilirsiniz.';
+            $success_msg[] = 'Yeni satıcı başarıyla kaydedildi! Giriş yapabilirsiniz.';
         }
     }
 ?>
@@ -68,7 +62,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Serin Lezzet - Satıcı Kayıt Sayfası</title>
 
-    <link rel="stylesheet" href="css/user_style.css">
+    <link rel="stylesheet" href="../css/admin_style.css">
 
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
@@ -125,9 +119,9 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <!-- Custom JS -->
-<script src="js/user_script.js"></script>
+<script src="../js/script.js"></script>
 
-<?php include 'components/alert.php'; ?>
+<?php include '../components/alert.php'; ?>
 
 </body>
 </html>
