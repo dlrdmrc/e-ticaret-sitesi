@@ -54,4 +54,5 @@ Bu proje öğrenme amaçlı hazırlanmıştır.
 ✨ Geliştirici
 Dilara Demirci
 📧 demircidlr02@gmail.com
-🔗 GitHub Profilim
+🔗 [GitHub Profilim](https://github.com/dlrdmrc)
+
